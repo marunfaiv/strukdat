@@ -1,0 +1,2 @@
+# strukdat
+progress selama kuliah
