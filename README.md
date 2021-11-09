@@ -7,4 +7,4 @@ progress selama kuliah
 3) setelah hapus, ketik cmake -S . -B . untuk generate new cmake files
 4) setelah itu ketik cmake -S . -B /build
 5) setelah itu make
-6) ketik ./strukdat
+6) ketik ./strukdat untuk run programnya
