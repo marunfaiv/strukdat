@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/arya/tugas/struktur-data/src/include/myFunction.h
+bits/stdc++.h
+-
+
+/home/arya/tugas/struktur-data/src/source/main.cpp
+bits/stdc++.h
+-
+../include/myFunction.h
+/home/arya/tugas/struktur-data/src/include/myFunction.h
+

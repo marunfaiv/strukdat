@@ -1,0 +1,6 @@
+/home/arya/tugas/struktur-data/CMakeFiles/rebuild_cache.dir
+/home/arya/tugas/struktur-data/CMakeFiles/edit_cache.dir
+/home/arya/tugas/struktur-data/CMakeFiles/strukdat.dir
+/home/arya/tugas/struktur-data/src/include/CMakeFiles/rebuild_cache.dir
+/home/arya/tugas/struktur-data/src/include/CMakeFiles/edit_cache.dir
+/home/arya/tugas/struktur-data/src/include/CMakeFiles/myFunction.dir

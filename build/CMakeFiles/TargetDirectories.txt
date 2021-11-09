@@ -1,0 +1,6 @@
+/home/arya/tugas/strukdat/build/CMakeFiles/rebuild_cache.dir
+/home/arya/tugas/strukdat/build/CMakeFiles/edit_cache.dir
+/home/arya/tugas/strukdat/build/CMakeFiles/strukdat.dir
+/home/arya/tugas/strukdat/build/src/include/CMakeFiles/rebuild_cache.dir
+/home/arya/tugas/strukdat/build/src/include/CMakeFiles/edit_cache.dir
+/home/arya/tugas/strukdat/build/src/include/CMakeFiles/myFunction.dir

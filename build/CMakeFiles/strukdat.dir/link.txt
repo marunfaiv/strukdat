@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/strukdat.dir/src/source/main.cpp.o  -o strukdat  src/include/libmyFunction.a 
