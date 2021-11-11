@@ -73,6 +73,7 @@ clean: src/include/clean
 # Directory level rules for directory src/include
 
 # Recursive "all" directory target.
+src/include/all: src/include/CMakeFiles/nodeDraw.dir/all
 src/include/all: src/include/CMakeFiles/myFunction.dir/all
 
 .PHONY : src/include/all
@@ -83,6 +84,7 @@ src/include/preinstall:
 .PHONY : src/include/preinstall
 
 # Recursive "clean" directory target.
+src/include/clean: src/include/CMakeFiles/nodeDraw.dir/clean
 src/include/clean: src/include/CMakeFiles/myFunction.dir/clean
 
 .PHONY : src/include/clean
@@ -91,15 +93,16 @@ src/include/clean: src/include/CMakeFiles/myFunction.dir/clean
 # Target rules for target CMakeFiles/strukdat.dir
 
 # All Build rule for target.
+CMakeFiles/strukdat.dir/all: src/include/CMakeFiles/nodeDraw.dir/all
 CMakeFiles/strukdat.dir/all: src/include/CMakeFiles/myFunction.dir/all
 	$(MAKE) -f CMakeFiles/strukdat.dir/build.make CMakeFiles/strukdat.dir/depend
 	$(MAKE) -f CMakeFiles/strukdat.dir/build.make CMakeFiles/strukdat.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/arya/tugas/struktur-data/CMakeFiles --progress-num=3,4 "Built target strukdat"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/arya/tugas/struktur-data/CMakeFiles --progress-num=5,6 "Built target strukdat"
 .PHONY : CMakeFiles/strukdat.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/strukdat.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arya/tugas/struktur-data/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arya/tugas/struktur-data/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/strukdat.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/arya/tugas/struktur-data/CMakeFiles 0
 .PHONY : CMakeFiles/strukdat.dir/rule
@@ -113,6 +116,33 @@ strukdat: CMakeFiles/strukdat.dir/rule
 CMakeFiles/strukdat.dir/clean:
 	$(MAKE) -f CMakeFiles/strukdat.dir/build.make CMakeFiles/strukdat.dir/clean
 .PHONY : CMakeFiles/strukdat.dir/clean
+
+#=============================================================================
+# Target rules for target src/include/CMakeFiles/nodeDraw.dir
+
+# All Build rule for target.
+src/include/CMakeFiles/nodeDraw.dir/all:
+	$(MAKE) -f src/include/CMakeFiles/nodeDraw.dir/build.make src/include/CMakeFiles/nodeDraw.dir/depend
+	$(MAKE) -f src/include/CMakeFiles/nodeDraw.dir/build.make src/include/CMakeFiles/nodeDraw.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/arya/tugas/struktur-data/CMakeFiles --progress-num=3,4 "Built target nodeDraw"
+.PHONY : src/include/CMakeFiles/nodeDraw.dir/all
+
+# Build rule for subdir invocation for target.
+src/include/CMakeFiles/nodeDraw.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arya/tugas/struktur-data/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 src/include/CMakeFiles/nodeDraw.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arya/tugas/struktur-data/CMakeFiles 0
+.PHONY : src/include/CMakeFiles/nodeDraw.dir/rule
+
+# Convenience name for target.
+nodeDraw: src/include/CMakeFiles/nodeDraw.dir/rule
+
+.PHONY : nodeDraw
+
+# clean rule for target.
+src/include/CMakeFiles/nodeDraw.dir/clean:
+	$(MAKE) -f src/include/CMakeFiles/nodeDraw.dir/build.make src/include/CMakeFiles/nodeDraw.dir/clean
+.PHONY : src/include/CMakeFiles/nodeDraw.dir/clean
 
 #=============================================================================
 # Target rules for target src/include/CMakeFiles/myFunction.dir

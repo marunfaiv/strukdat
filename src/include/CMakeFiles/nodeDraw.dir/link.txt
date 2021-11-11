@@ -1,0 +1,2 @@
+/usr/bin/ar qc libnodeDraw.a  CMakeFiles/nodeDraw.dir/nodeDraw.cpp.o
+/usr/bin/ranlib libnodeDraw.a

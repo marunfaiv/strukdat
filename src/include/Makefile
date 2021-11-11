@@ -111,6 +111,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+src/include/CMakeFiles/nodeDraw.dir/rule:
+	cd /home/arya/tugas/struktur-data && $(MAKE) -f CMakeFiles/Makefile2 src/include/CMakeFiles/nodeDraw.dir/rule
+.PHONY : src/include/CMakeFiles/nodeDraw.dir/rule
+
+# Convenience name for target.
+nodeDraw: src/include/CMakeFiles/nodeDraw.dir/rule
+
+.PHONY : nodeDraw
+
+# fast build rule for target.
+nodeDraw/fast:
+	cd /home/arya/tugas/struktur-data && $(MAKE) -f src/include/CMakeFiles/nodeDraw.dir/build.make src/include/CMakeFiles/nodeDraw.dir/build
+.PHONY : nodeDraw/fast
+
+# Convenience name for target.
 src/include/CMakeFiles/myFunction.dir/rule:
 	cd /home/arya/tugas/struktur-data && $(MAKE) -f CMakeFiles/Makefile2 src/include/CMakeFiles/myFunction.dir/rule
 .PHONY : src/include/CMakeFiles/myFunction.dir/rule
@@ -152,6 +167,33 @@ myFunction.cpp.s:
 	cd /home/arya/tugas/struktur-data && $(MAKE) -f src/include/CMakeFiles/myFunction.dir/build.make src/include/CMakeFiles/myFunction.dir/myFunction.cpp.s
 .PHONY : myFunction.cpp.s
 
+nodeDraw.o: nodeDraw.cpp.o
+
+.PHONY : nodeDraw.o
+
+# target to build an object file
+nodeDraw.cpp.o:
+	cd /home/arya/tugas/struktur-data && $(MAKE) -f src/include/CMakeFiles/nodeDraw.dir/build.make src/include/CMakeFiles/nodeDraw.dir/nodeDraw.cpp.o
+.PHONY : nodeDraw.cpp.o
+
+nodeDraw.i: nodeDraw.cpp.i
+
+.PHONY : nodeDraw.i
+
+# target to preprocess a source file
+nodeDraw.cpp.i:
+	cd /home/arya/tugas/struktur-data && $(MAKE) -f src/include/CMakeFiles/nodeDraw.dir/build.make src/include/CMakeFiles/nodeDraw.dir/nodeDraw.cpp.i
+.PHONY : nodeDraw.cpp.i
+
+nodeDraw.s: nodeDraw.cpp.s
+
+.PHONY : nodeDraw.s
+
+# target to generate assembly for a file
+nodeDraw.cpp.s:
+	cd /home/arya/tugas/struktur-data && $(MAKE) -f src/include/CMakeFiles/nodeDraw.dir/build.make src/include/CMakeFiles/nodeDraw.dir/nodeDraw.cpp.s
+.PHONY : nodeDraw.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -160,10 +202,14 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... nodeDraw"
 	@echo "... myFunction"
 	@echo "... myFunction.o"
 	@echo "... myFunction.i"
 	@echo "... myFunction.s"
+	@echo "... nodeDraw.o"
+	@echo "... nodeDraw.i"
+	@echo "... nodeDraw.s"
 .PHONY : help
 
 

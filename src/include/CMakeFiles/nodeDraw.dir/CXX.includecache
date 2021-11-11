@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/arya/tugas/struktur-data/src/include/nodeDraw.cpp
+nodeDraw.h
+/home/arya/tugas/struktur-data/src/include/nodeDraw.h
+
+/home/arya/tugas/struktur-data/src/include/nodeDraw.h
+bits/stdc++.h
+-
+SFML/Graphics.hpp
+-
+

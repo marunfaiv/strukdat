@@ -80,6 +80,10 @@ strukdat_EXTERNAL_OBJECTS =
 strukdat: CMakeFiles/strukdat.dir/src/source/main.cpp.o
 strukdat: CMakeFiles/strukdat.dir/build.make
 strukdat: src/include/libmyFunction.a
+strukdat: src/include/libnodeDraw.a
+strukdat: /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1
+strukdat: /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1
+strukdat: /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1
 strukdat: CMakeFiles/strukdat.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/arya/tugas/struktur-data/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable strukdat"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/strukdat.dir/link.txt --verbose=$(VERBOSE)

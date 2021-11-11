@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/arya/tugas/struktur-data/src/source/main.cpp" "/home/arya/tugas/struktur-data/CMakeFiles/strukdat.dir/src/source/main.cpp.o"
+  "/home/arya/tugas/struktur-data/src/include/nodeDraw.cpp" "/home/arya/tugas/struktur-data/src/include/CMakeFiles/nodeDraw.dir/nodeDraw.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -14,8 +14,6 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/arya/tugas/struktur-data/src/include/CMakeFiles/myFunction.dir/DependInfo.cmake"
-  "/home/arya/tugas/struktur-data/src/include/CMakeFiles/nodeDraw.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

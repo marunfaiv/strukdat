@@ -124,6 +124,19 @@ strukdat/fast:
 .PHONY : strukdat/fast
 
 #=============================================================================
+# Target rules for targets named nodeDraw
+
+# Build rule for target.
+nodeDraw: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nodeDraw
+.PHONY : nodeDraw
+
+# fast build rule for target.
+nodeDraw/fast:
+	$(MAKE) -f src/include/CMakeFiles/nodeDraw.dir/build.make src/include/CMakeFiles/nodeDraw.dir/build
+.PHONY : nodeDraw/fast
+
+#=============================================================================
 # Target rules for targets named myFunction
 
 # Build rule for target.
@@ -172,6 +185,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... strukdat"
+	@echo "... nodeDraw"
 	@echo "... myFunction"
 	@echo "... src/source/main.o"
 	@echo "... src/source/main.i"
