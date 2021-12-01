@@ -2,11 +2,7 @@
 
 nodeDraw::nodeDraw()
 {
-    // this->func = func;
-    this->window = window;
-    setWindow(window);
-    // font.loadFromFile("Arial.ttf");
-    // txt.setFont(font);
+    init();
 }
 
 nodeDraw::~nodeDraw()
@@ -36,7 +32,7 @@ void nodeDraw::drawLineDown(sf::RenderWindow *window)
     window->draw(line, 2, sf::Lines);
 }
 
-void nodeDraw::drawCircle(sf::RenderWindow *window, int x, int y)
+void nodeDraw::drawCircle(sf::RenderWindow *window, int x, int y, string txt)
 {
     this->x = x;
     this->y = y;
@@ -45,17 +41,66 @@ void nodeDraw::drawCircle(sf::RenderWindow *window, int x, int y)
     circle.setFillColor(sf::Color::White);
     circle.getOutlineColor();
 
-    // txt.setString(namaKota);
-    // txt.setFillColor(sf::Color::Red);
-    // txt.setStyle(sf::Text::Bold);
-    // txt.setPosition(sf::Vector2f(100, 300));
-    // circle.setOutlineColor(sf::Color::Blue);
-    // window->draw(txt);
+    // std::stringstream txtLabel;
+    // txtLabel << txt;
+    txtLabel.setString(txt);
+    txtLabel.setFillColor(sf::Color::Red);
+    txtLabel.setStyle(sf::Text::Bold);
+    txtLabel.setPosition(sf::Vector2f(x+45, y+30));
+    txtLabel.setCharacterSize(50);
+    circle.setOutlineColor(sf::Color::Blue);
+
+    // while (true)
+    // {
+        
+    // }
+    
     window->draw(circle);
+    window->draw(txtLabel);
+}
+
+void nodeDraw::init()
+{
+    // this->func = func;
+    this->window = window;
+    this->event = event;
+    setWindow(window);
+    font.loadFromFile("/home/arya/tugas/struktur-data/src/include/Arial.ttf");
+    txtLabel.setFont(font);
+    // while (true)
+    // {
+        // while (window->pollEvent(event))
+        // {
+
+        //     switch (event.type)
+        //     {
+
+        //     case sf::Event::Closed:
+        //         window->close();
+        //         break;
+        //     }
+        // }
+
+        // window->clear();
+
+        // // highscore.str("");
+        // // highscore << "HIGH SCORE : " << *score;
+        // // highscorelbl.setString(highscore.str());
+
+        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        // {
+        //     return window->close();
+        // }
+
+        // window->draw(text);
+        // window->draw(text2);
+        // window->draw(highscorelbl);
+
+        // window->display();
+    // }
 }
 
 void nodeDraw::nodesVisual(sf::RenderWindow *window)
 {
-    drawCircle(window, 100, 200);
-    drawCircle(window, 200, 300);
+    // drawCircle(window, x, y, "A");
 }

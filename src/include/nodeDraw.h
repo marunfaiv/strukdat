@@ -14,14 +14,16 @@ class nodeDraw
 private:
     // myFunction *func;
     int x, y;
-    sf::Text txt;
+    sf::Text txtLabel;
     sf::Font font;
+    sf::Event event;
     sf::RenderWindow *window;
 
     void setWindow(sf::RenderWindow *window);
     void drawLineUp(sf::RenderWindow *window);
     void drawLineDown(sf::RenderWindow *window);
-    void drawCircle(sf::RenderWindow *window, int, int);
+    void drawCircle(sf::RenderWindow *window, int, int, string);
+    void init();
 
 protected:
     // durung enek isine bos, sik bingung wkkw

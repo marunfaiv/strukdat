@@ -6,15 +6,25 @@ myFunction::myFunction(nodeDraw *node)
     this->node = node;
     this->window = window;
     listData.top = 0;
-    listData.dataKota->lastNode = -1;
+    // listData.dataKota.lastNode = -1;
     q.belakang = 0;
     q.depan = 0;
 
-    append("A", 0, 0);
-    append("B", 10, 10);
-    append("C", 4, 10);
-    append("D", 5, 9);
-    append("E", 6, 9);
+    // struct hubKota hub;
+    // vector<struct kota> dataKota;
+
+    append("A", 100, 200);
+    append("B", 200, 300);
+    append("C", 300, 400);
+    append("D", 400, 500);
+    append("E", 500, 600);
+
+    connectKota("A", "B", 1);
+    connectKota("A", "C", 2);
+    connectKota("B", "D", 5);
+    connectKota("B", "E", 1);
+    connectKota("C", "D", 2);
+    connectKota("D", "E", 3);
     // node->nodesVisual(window);
 }
 
@@ -34,6 +44,8 @@ void myFunction::append(string nama, int x, int y /*, int jarak*/)
     listData.dataKota[listData.top].idxKota = listData.top;
     // listData.dataKota[listData.top].jarakKota = jarak;
     listData.top++;
+
+    // node->(window, x, y, nama);
 }
 
 bool myFunction::isFull()
@@ -89,14 +101,14 @@ void myFunction::print()
     // int chc = 0;
     // cout << "Data dari Push atau Antrian \n1 = Push \n2 = Queue " << endl;
     // cin >> chc;
-    cout << "\t\tDATA KOTA\n";
+    cout << "\t\t\tDATA KOTA\n";
     // header
-    cout << "Index Kota:\t";
+    // cout << "Index Kota:\t";
     cout << "Nama:\t";
     cout << "X:\t";
     cout << "Y:\t";
-    cout << "Jarak:\t";
-    cout << "Hubungan:\n";
+    cout << "Hubungan:\t";
+    cout << "Jarak:\n";
     // if (chc == 1)
     // {
     if (isEmpty())
@@ -104,7 +116,7 @@ void myFunction::print()
     // isi
     for (int i = 0; i < listData.top; i++)
     {
-        cout << listData.dataKota[i].idxKota << "\t\t";
+        // cout << listData.dataKota[i].idxKota << "\t\t";
         cout << listData.dataKota[i].namaKota << "\t";
         cout << listData.dataKota[i].x << "\t";
         cout << listData.dataKota[i].y << "\t";
@@ -115,9 +127,26 @@ void myFunction::print()
         else
         {
             for (int j = 0; j < listData.dataKota[i].lastNode; j++)
-                cout << listData.dataKota[i].hubKota[j] << ", ";
-            cout << listData.dataKota[i].hubKota[listData.dataKota[i].lastNode] << " ";
+            {
+                cout << listData.dataKota[i].hub[j].tujuanKota << ", ";
+                // cout << listData.dataKota[i].hub[j].jarak << ", ";
+                //cout << listData.dataKota[0].nextKota.front().kotaTujuan; cout <<  hub.kotaTujuan << ", ";
+                // cout << listData.dataKota[j].nextKota.front().kotaTujuan << ", ";
+            }
+            cout << listData.dataKota[i].hub[listData.dataKota[i].lastNode].tujuanKota << "\t\t";
+
+            for (int k = 0; k < listData.dataKota[i].lastNode; k++)
+            {
+                cout << listData.dataKota[i].hub[k].jarak << ", ";
+            }
+            cout << listData.dataKota[i].hub[listData.dataKota[i].lastNode].jarak << " ";
         }
+
+        // for (int k = 0; k < listData.dataKota[i].lastNode; k++)
+        // {
+        //     cout << listData.dataKota[i].hub[k].jarak << ", ";
+        // }
+        // cout << listData.dataKota[i].hub[listData.dataKota[i].lastNode].jarak << " ";
         cout << endl;
     }
     // }
@@ -186,22 +215,52 @@ void myFunction::connect()
     cout << "Masukkan nama Kota yang ingin dihubungkan: ";
     cin >> kota1;
     cin >> kota2;
+
+    cout << "Masukkan jarak antar Kota";
+    int jarak;
+    cin >> jarak;
     int id1 = indexSearch(kota1);
     int id2 = indexSearch(kota2);
 
     if (id1 >= 0 and id2 >= 0)
     {
         listData.dataKota[id1].lastNode++;
-        listData.dataKota[id1].hubKota[listData.dataKota[id1].lastNode] = kota2;
+        listData.dataKota[id1].hub[listData.dataKota[id1].lastNode].tujuanKota = kota2;
         listData.dataKota[id1].nextNode[listData.dataKota[id1].lastNode] = id2;
+        listData.dataKota[id1].hub[listData.dataKota[id1].lastNode].jarak = jarak;
 
         /* ini untuk connect 2 arah */
-        //  listData.dataKota[id2].lastNode++;
-        //  listData.dataKota[id2].hubKota[listData.dataKota[id2].lastNode] = kota1;
-        //  listData.dataKota[id2].nextNode[listData.dataKota[id2].lastNode] = id1;
+        listData.dataKota[id2].lastNode++;
+        listData.dataKota[id2].hub[listData.dataKota[id2].lastNode].tujuanKota = kota1;
+        listData.dataKota[id2].nextNode[listData.dataKota[id2].lastNode] = id1;
+        listData.dataKota[id2].hub[listData.dataKota[id2].lastNode].jarak = jarak;
     }
     else
         cout << "Kuto ne ra temu bos...\n";
+}
+
+void myFunction::connectKota(string kotaAsal, string kotaTujuan, int jarak)
+{
+    int id1 = indexSearch(kotaAsal);
+    int id2 = indexSearch(kotaTujuan);
+
+    if (id1 >= 0 and id2 >= 0)
+    {
+        listData.dataKota[id1].lastNode++;
+        listData.dataKota[id1].hub[listData.dataKota[id1].lastNode].tujuanKota = kotaTujuan;
+        listData.dataKota[id1].nextNode[listData.dataKota[id1].lastNode] = id2;
+        listData.dataKota[id1].hub[listData.dataKota[id1].lastNode].jarak = jarak;
+
+        /* ini untuk connect 2 arah */
+        listData.dataKota[id2].lastNode++;
+        listData.dataKota[id2].hub[listData.dataKota[id2].lastNode].tujuanKota = kotaAsal;
+        listData.dataKota[id2].nextNode[listData.dataKota[id2].lastNode] = id1;
+        listData.dataKota[id2].hub[listData.dataKota[id2].lastNode].jarak = jarak;
+
+        // hub.kotaTujuan = kotaTujuan;
+        // hub.jarak = jarak;
+        // listData.dataKota[id1].nextKota.push_back(hub);
+    }
 }
 
 void myFunction::enque()
@@ -235,24 +294,29 @@ void myFunction::deque()
     }
 }
 
-void myFunction::trialError(sf::RenderWindow *window)
+void myFunction::trialError()
 {
-    // string nama;
-    // int x, y;
-    // if (isFull())
-    //     cout << "Wes full bro..." << endl;
-    // else
+    // cout << listData.top << endl;
+    // cout << "Hubungan Kota\t\t"
+    //      << "Jarak\n";
+    // for (int i = 0; i < listData.dataKota->nextKota.size(); i++)
     // {
-    //     cout << "Masukkan Nama Kota: ";
-    //     cin >> nama;
-    //     cout << "X dan Y: ";
-    //     cin >> x >> y;
-    //     append(nama, x, y);
-    //     node->drawCircle(window, nama, x, y);
+    //     // cout << listData.dataKota[i].nextKota.front().jarak << endl;
+    //     cout << listData.dataKota[i].nextKota.front().kotaTujuan << " ";
     // }
-    // node->drawLineUp(window);
-    // node->drawLineDown(window);
-    // cout << "Hello Ganteng" << endl;
+
+    //     cout << "Masukkan nama kota: ";
+    //     string kota;
+    //     cin >> kota;
+
+    //     int n = indexSearch(kota);
+
+    //     for (int i = 0; i < listData.dataKota[n].nextKota.size(); i++)
+    //     {
+    //         cout << listData.dataKota[i].nextKota.front().kotaTujuan << ", ";
+    //     }
+    cout << listData.dataKota[0].hub[0].tujuanKota << endl;
+    cout << listData.dataKota[0].hub[1].tujuanKota << endl;
 }
 
 int myFunction::minDistance(int dist[], bool isTraveled[])
@@ -311,11 +375,11 @@ void myFunction::printHubungan(int parent[], int i)
 void myFunction::dijkstra()
 {
     int graph[listData.top][listData.top] = {
-        {0, 1, 2, 0, 0},
-        {1, 0, 0, 5, 1},
-        {2, 0, 0, 2, 0},
-        {0, 5, 2, 0, 3},
-        {0, 1, 0, 2, 0},
+        {0, listData.dataKota[0].hub[0].jarak, listData.dataKota[0].hub[1].jarak, 0, 0},                                 //0
+        {listData.dataKota[1].hub[0].jarak, 0, 0, listData.dataKota[1].hub[1].jarak, listData.dataKota[1].hub[2].jarak}, //1
+        {listData.dataKota[2].hub[0].jarak, 0, 0, listData.dataKota[2].hub[1].jarak, 0},                                 //2
+        {0, listData.dataKota[3].hub[0].jarak, listData.dataKota[3].hub[1].jarak, 0, listData.dataKota[3].hub[2].jarak}, //3
+        {0, listData.dataKota[4].hub[0].jarak, 0, listData.dataKota[4].hub[1].jarak, 0},                                 //4
         // {0, 0, 0, 2, 1, 0}
     };
     string namaKota;
@@ -423,3 +487,22 @@ void myFunction::dijkstra()
     //     cout << isJalur[i] << endl;
     // }
 }
+
+// void myFunction::jarakKota()
+// {
+
+// }
+
+// void myFunction::hubunganKota()
+// {
+//     cout << "Masukkan nama kota: ";
+//     string kota;
+//     cin >> kota;
+
+//     int n = indexSearch(kota);
+
+//     for (int i = 0; i < listData.dataKota[n].nextKota.size(); i++)
+//     {
+//         cout << listData.dataKota[i].nextKota.front().kotaTujuan << ", ";
+//     }
+// }

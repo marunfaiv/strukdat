@@ -8,13 +8,12 @@ int main(int argc, char **argv)
     nodeDraw node;
     myFunction data(&node);
     int input;
-
     while (true)
     {
         cout << "\n0. Exit\n1. Print\n2. Push\n3. Pop\n4. Search\n5. Connect\n6. Cari Jalur\n7. Visual"
              << endl;
+        cout << "Pilihanmu adalah: ";
         cin >> input;
-        cout << "Pilihanmu adalah: " << input << endl;
         if (input == 0)
             break;
         else if (input == 1)
@@ -39,9 +38,14 @@ int main(int argc, char **argv)
                 {
                     if (event.type == sf::Event::Closed)
                         window.close();
+                    // if (event.type == sf::Event::KeyEvent::)
+                    // {
+                    // }
                 }
                 // window.setActive();
                 window.clear();
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+                    window.close();
                 // data.trialError(&window);
                 // node.drawLine();
                 // node.drawLine(100, 100);
@@ -50,6 +54,8 @@ int main(int argc, char **argv)
                 window.display();
             }
         }
+        else if (input == 8)
+            data.trialError();
     }
 
     return 0;

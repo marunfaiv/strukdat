@@ -4,25 +4,37 @@
 #include <bits/stdc++.h>
 #include "nodeDraw.h"
 using namespace std;
-#define max 10
+#define max 9
 
-class myFunction
+class myFunction : public nodeDraw
 {
 private:
     nodeDraw *node;
     sf::RenderWindow *window;
+    // struct hubKota
+    // {
+    //     string kotaTujuan;
+    //     int jarak;
+    // };
+    // struct hubKota hub;
     struct stack
     {
         int top;
         struct kota
         {
             string namaKota;
-            string hubKota[max];
+            // string hubKota[max];
             int x, y;
             int nextNode[max];
+            // vector<struct hubKota> nextKota;
             int lastNode;
             int jarakKota;
             int idxKota;
+            struct hubKota
+            {
+                int jarak;
+                string tujuanKota;
+            } hub[max];
         } dataKota[max];
     } listData;
 
@@ -52,6 +64,7 @@ private:
     void printShortestPath(int[], int, int[], int);
     // void dijkstraGraph();
     void printHubungan(int[], int);
+    void connectKota(string, string, int);
 
 public:
     myFunction(nodeDraw *node);
@@ -66,9 +79,10 @@ public:
     void enque();
     void deque();
     void dijkstra();
-
+    void hubunganKota();
+    void jarakKota();
     // void shortestPath();
-    void trialError(sf::RenderWindow *window);
+    void trialError();
 
 protected:
 };
