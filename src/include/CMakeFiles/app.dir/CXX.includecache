@@ -6,9 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/home/arya/tugas/struktur-data/src/include/myFunction.cpp
+/home/arya/tugas/struktur-data/src/include/app.cpp
+app.h
+/home/arya/tugas/struktur-data/src/include/app.h
+
+/home/arya/tugas/struktur-data/src/include/app.h
 myFunction.h
 /home/arya/tugas/struktur-data/src/include/myFunction.h
+nodeDraw.h
+/home/arya/tugas/struktur-data/src/include/nodeDraw.h
+typeinfo
+-
 
 /home/arya/tugas/struktur-data/src/include/myFunction.h
 bits/stdc++.h

@@ -1,16 +1,20 @@
 #include <bits/stdc++.h>
 #include "../include/myFunction.h"
+#include "../include/nodeDraw.h"
 using namespace std;
 
-int main()
+int main(int argc, char **argv)
 {
-    myFunction data;
+    nodeDraw node;
+    myFunction data(&node);
+    int input;
 
-    int input, val;
     while (true)
     {
-        cout << "0. Exit\n1. Print\n2. Push\n3. Pop\n4. Search\n5. Connect\n6. Queue\n7. Dequeue" << endl;
+        cout << "\n0. Exit\n1. Print\n2. Push\n3. Pop\n4. Search\n5. Connect\n6. Cari Jalur\n7. Visual"
+             << endl;
         cin >> input;
+        cout << "Pilihanmu adalah: " << input << endl;
         if (input == 0)
             break;
         else if (input == 1)
@@ -24,9 +28,29 @@ int main()
         else if (input == 5)
             data.connect();
         else if (input == 6)
-            data.enque();
+            data.dijkstra();
         else if (input == 7)
-            data.deque();
+        {
+            sf::RenderWindow window(sf::VideoMode(1200, 600), "Map GUI");
+            sf::Event event;
+            while (window.isOpen())
+            {
+                while (window.pollEvent(event))
+                {
+                    if (event.type == sf::Event::Closed)
+                        window.close();
+                }
+                // window.setActive();
+                window.clear();
+                // data.trialError(&window);
+                // node.drawLine();
+                // node.drawLine(100, 100);
+                // window.draw(line, 2, sf::Lines);
+                node.nodesVisual(&window);
+                window.display();
+            }
+        }
     }
+
     return 0;
 }

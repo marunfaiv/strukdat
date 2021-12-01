@@ -15,4 +15,8 @@ bits/stdc++.h
 -
 SFML/Graphics.hpp
 -
+SFML/Window.hpp
+-
+SFML/System.hpp
+-
 

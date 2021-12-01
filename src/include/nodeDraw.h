@@ -4,7 +4,9 @@
 // #include "myFunction.h"
 #include <bits/stdc++.h>
 #include <SFML/Graphics.hpp>
-using namespace sf;
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+// using namespace sf;
 using namespace std;
 
 class nodeDraw
@@ -12,13 +14,21 @@ class nodeDraw
 private:
     // myFunction *func;
     int x, y;
+    sf::Text txt;
+    sf::Font font;
+    sf::RenderWindow *window;
+
+    void setWindow(sf::RenderWindow *window);
+    void drawLineUp(sf::RenderWindow *window);
+    void drawLineDown(sf::RenderWindow *window);
+    void drawCircle(sf::RenderWindow *window, int, int);
 
 protected:
     // durung enek isine bos, sik bingung wkkw
 public:
     nodeDraw();
     ~nodeDraw();
-    void drawLine(int, int);
-    void drawCircle(string);
+
+    void nodesVisual(sf::RenderWindow *window);
 };
 #endif NODEDRAW_H

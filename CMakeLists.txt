@@ -13,6 +13,7 @@ find_package(SFML 2.5
 add_executable(${PROJECT_NAME} src/source/main.cpp)
 
 add_subdirectory(src/include)
+# add_subdirectory(src/fonts)
 
 target_link_libraries(${PROJECT_NAME} myFunction nodeDraw sfml-graphics)
 # install(TARGETS S)
