@@ -1,10 +1,10 @@
 #include "myFunction.h"
 
-//Constructor
-myFunction::myFunction(nodeDraw *node)
+// Constructor
+myFunction::myFunction()
 {
-    this->node = node;
-    this->window = window;
+    // this->node = node;
+    // this->window = window;
     listData.top = 0;
     // listData.dataKota.lastNode = -1;
     q.belakang = 0;
@@ -13,11 +13,11 @@ myFunction::myFunction(nodeDraw *node)
     // struct hubKota hub;
     // vector<struct kota> dataKota;
 
-    append("A", 100, 200);
-    append("B", 200, 300);
-    append("C", 300, 400);
-    append("D", 400, 500);
-    append("E", 500, 600);
+    append("A", 360, 180);
+    append("B", 720, 180);
+    append("C", 360, 420);
+    append("D", 720, 420);
+    append("E", 960, 300);
 
     connectKota("A", "B", 1);
     connectKota("A", "C", 2);
@@ -28,15 +28,18 @@ myFunction::myFunction(nodeDraw *node)
     // node->nodesVisual(window);
 }
 
-//Destructor
+// Destructor
 myFunction::~myFunction()
 {
     delete this;
 }
 
-//Private Function
-void myFunction::append(string nama, int x, int y /*, int jarak*/)
+// Private Function
+void myFunction::append(string nama, int x, int y)
 {
+    // this->x[listData.top] = x;
+    // this->y[listData.top] = y;
+    // this->nama[listData.top] = nama;
     listData.dataKota[listData.top].namaKota = nama;
     listData.dataKota[listData.top].x = x;
     listData.dataKota[listData.top].y = y;
@@ -45,12 +48,16 @@ void myFunction::append(string nama, int x, int y /*, int jarak*/)
     // listData.dataKota[listData.top].jarakKota = jarak;
     listData.top++;
 
+    // node->drawCircle(x, y, nama);
+    // dataX(x);
+    // dataY(y);
+    // dataName(nama);
     // node->(window, x, y, nama);
 }
 
 bool myFunction::isFull()
 {
-    return listData.top == max - 1;
+    return listData.top == batas - 1;
 }
 
 bool myFunction::isEmpty()
@@ -60,7 +67,7 @@ bool myFunction::isEmpty()
 
 bool myFunction::qFull()
 {
-    return q.belakang == max;
+    return q.belakang == batas;
 }
 
 bool myFunction::qEmpty()
@@ -95,7 +102,7 @@ string myFunction::cityNameSearch(int idx)
     return namaKota;
 }
 
-//Public Function
+// Public Function
 void myFunction::print()
 {
     // int chc = 0;
@@ -130,7 +137,7 @@ void myFunction::print()
             {
                 cout << listData.dataKota[i].hub[j].tujuanKota << ", ";
                 // cout << listData.dataKota[i].hub[j].jarak << ", ";
-                //cout << listData.dataKota[0].nextKota.front().kotaTujuan; cout <<  hub.kotaTujuan << ", ";
+                // cout << listData.dataKota[0].nextKota.front().kotaTujuan; cout <<  hub.kotaTujuan << ", ";
                 // cout << listData.dataKota[j].nextKota.front().kotaTujuan << ", ";
             }
             cout << listData.dataKota[i].hub[listData.dataKota[i].lastNode].tujuanKota << "\t\t";
@@ -141,12 +148,6 @@ void myFunction::print()
             }
             cout << listData.dataKota[i].hub[listData.dataKota[i].lastNode].jarak << " ";
         }
-
-        // for (int k = 0; k < listData.dataKota[i].lastNode; k++)
-        // {
-        //     cout << listData.dataKota[i].hub[k].jarak << ", ";
-        // }
-        // cout << listData.dataKota[i].hub[listData.dataKota[i].lastNode].jarak << " ";
         cout << endl;
     }
     // }
@@ -171,6 +172,9 @@ void myFunction::pushData()
     string nama;
     int x, y;
     int jarak;
+    // this->x = x;
+    // this->y = y;
+    // this->nama = nama;
     if (isFull())
         cout << "Wes full bro..." << endl;
     else
@@ -294,6 +298,48 @@ void myFunction::deque()
     }
 }
 
+// int myFunction::dataX(int x)
+// {
+//     return x;
+// }
+
+// int myFunction::dataY(int y)
+// {
+//     return y;
+// }
+
+// string myFunction::dataName(string nama)
+// {
+//     return nama;
+// }
+
+int myFunction::getX()
+{
+    // return this->x[listData.top];
+    for (int i = 0; i < listData.top; i++)
+    {
+        return this->x[i];
+    }
+}
+
+int myFunction::getY()
+{
+    // return this->y[listData.top];
+    for (int i = 0; i < listData.top; i++)
+    {
+        return this->y[i];
+    }
+}
+
+string myFunction::getName()
+{
+    // return this->nama[listData.top];
+    for (int i = 0; i < listData.top; i++)
+    {
+        return this->nama[i];
+    }
+}
+
 void myFunction::trialError()
 {
     // cout << listData.top << endl;
@@ -315,8 +361,12 @@ void myFunction::trialError()
     //     {
     //         cout << listData.dataKota[i].nextKota.front().kotaTujuan << ", ";
     //     }
-    cout << listData.dataKota[0].hub[0].tujuanKota << endl;
-    cout << listData.dataKota[0].hub[1].tujuanKota << endl;
+    // cout << listData.dataKota[0].hub[0].tujuanKota << endl;
+    // cout << listData.dataKota[0].hub[1].tujuanKota << endl;
+
+    // cout << getX() << "\n";
+    // cout << getY() << "\n";
+    // cout << getName() << "\n";
 }
 
 int myFunction::minDistance(int dist[], bool isTraveled[])
@@ -331,7 +381,7 @@ int myFunction::minDistance(int dist[], bool isTraveled[])
     return min_index;
 }
 
-void myFunction::printShortestPath(int dist[], int n, int parent[], int src)
+void myFunction::printAllPath(int dist[], int n, int parent[], int src)
 {
     cout << "Tujuan \t\tTotal Jarak\tRute Tercepat";
 
@@ -348,51 +398,55 @@ void myFunction::printShortestPath(int dist[], int n, int parent[], int src)
     }
 }
 
+void myFunction::printSinglePath(int dist[], int n, int parent[], int src, int dst)
+{
+    cout << "Tujuan\t";
+    cout << "Jalur\t\t";
+    cout << "Jarak";
+
+    string kotaAsal = cityNameSearch(src);
+    string kotaTujuan = cityNameSearch(dst);
+
+    cout << "\n"
+         << kotaAsal << "->" << kotaTujuan << "\t" << kotaAsal;
+    // string kotaLanjutan = cityNameSearch(dst);
+    printHubungan(parent, dst);
+    cout << "\t\t" << dist[dst];
+}
+
 void myFunction::printHubungan(int parent[], int i)
 {
     if (parent[i] == -1)
         return;
     printHubungan(parent, parent[i]);
-
     string kotaHubungan = cityNameSearch(i);
     cout << "->" << kotaHubungan;
 }
 
-// void myFunction::dijkstraGraph()
-// {
-//     // listData.top++;
-//     int graph[listData.top][listData.top] = {
-//         {0, 1, 2, 0, 0, 0},
-//         {1, 0, 0, 5, 1, 0},
-//         {2, 0, 0, 2, 3, 0},
-//         {0, 5, 2, 0, 2, 2},
-//         {0, 1, 3, 2, 0, 1},
-//         // {0, 0, 0, 2, 1, 0}
-//     };
-//     // dijkstra(graph);
-// }
-
 void myFunction::dijkstra()
 {
     int graph[listData.top][listData.top] = {
-        {0, listData.dataKota[0].hub[0].jarak, listData.dataKota[0].hub[1].jarak, 0, 0},                                 //0
-        {listData.dataKota[1].hub[0].jarak, 0, 0, listData.dataKota[1].hub[1].jarak, listData.dataKota[1].hub[2].jarak}, //1
-        {listData.dataKota[2].hub[0].jarak, 0, 0, listData.dataKota[2].hub[1].jarak, 0},                                 //2
-        {0, listData.dataKota[3].hub[0].jarak, listData.dataKota[3].hub[1].jarak, 0, listData.dataKota[3].hub[2].jarak}, //3
-        {0, listData.dataKota[4].hub[0].jarak, 0, listData.dataKota[4].hub[1].jarak, 0},                                 //4
+        {0, listData.dataKota[0].hub[0].jarak, listData.dataKota[0].hub[1].jarak, 0, 0},                                 // A
+        {listData.dataKota[1].hub[0].jarak, 0, 0, listData.dataKota[1].hub[1].jarak, listData.dataKota[1].hub[2].jarak}, // B
+        {listData.dataKota[2].hub[0].jarak, 0, 0, listData.dataKota[2].hub[1].jarak, 0},                                 // C
+        {0, listData.dataKota[3].hub[0].jarak, listData.dataKota[3].hub[1].jarak, 0, listData.dataKota[3].hub[2].jarak}, // D
+        {0, listData.dataKota[4].hub[0].jarak, 0, listData.dataKota[4].hub[1].jarak, 0},                                 // E
         // {0, 0, 0, 2, 1, 0}
     };
-    string namaKota;
-    int src;
-    cout << "Masukkan Asal Kota: ";
+    string namaKota, tujuanKota;
+    int src, dst, chc;
+
+    cout << "Single Path / All Path: ";
+    cin >> chc;
+    cout << "\nMasukkan Asal Kota: ";
     cin >> namaKota;
 
-    //konversi nama kota ke index
+    // konversi nama kota ke index
     src = indexSearch(namaKota);
 
-    int jarak[max];
-    bool isTraveled[max] = {0};
-    int parent[max];
+    int jarak[batas];
+    bool isTraveled[batas] = {0};
+    int parent[batas];
 
     for (int i = 0; i < listData.top; i++)
     {
@@ -417,92 +471,14 @@ void myFunction::dijkstra()
         }
     }
 
-    //Printing
-    printShortestPath(jarak, listData.top, parent, src);
-
-    // cout << "Asal\t\tJarak dari asal" << endl;
-    // for (int k = 0; k < listData.top; k++)
-    // {
-    //     char str = 65 + k;
-    //     cout << str << "\t\t\t" << jarak[k] << endl;
-    // }
-
-    // cout << "Jarak Tercepat " << namaKota << " Menuju E";
-
-    // bool isTraveled[listData.top] = {0};
-    // // bool isJalur[max] = {0};
-    // int jarak[listData.top] = {INT_MAX};
-    // int src;
-    // cin >> src;
-    // jarak[src] = 0;
-
-    // for (int i = 0; i < listData.top; i++)
-    // {
-    //     int m = minDistance(jarak, isTraveled);
-    //     isTraveled[m] = true;
-    //     for (int j = 0; j < listData.top; j++)
-    //     {
-    //         if (!isTraveled[j] && jarak[m] != INT_MAX && listData.dataKota[m].jarakKota + jarak[m] < INT_MAX)
-    //             jarak[j] = jarak[m] + listData.dataKota[m].jarakKota;
-    //     }
-    // }
-
-    // for (int k = 0; k < 6; k++)
-    // {
-    //     char str = 65 + k;
-    //     cout << str << "\t\t\t" << jarak[k] << endl;
-    // }
-    // for (int i = 1; i < listData.top; i++)
-    // {
-    //     if (listData.dataKota[i - 1].jarakKota + listData.dataKota[i].jarakKota < INT_MAX && isTraveled[i - 1] == false)
-    //     {
-    //         isTraveled[i - 1] = true;
-    //         jarak[i] = listData.dataKota[i - 1].jarakKota + listData.dataKota[i].jarakKota;
-    //     }
-    // }
-
-    // listData.dataKota[0].jarakKota = 0;
-    // for (int i = 1; i <= listData.top; i++)
-    // {
-    //     // cout << jarak[i - 1] << endl;
-    //     // listData.dataKota[i-1].jarakKota = jarak[i-1];
-    //     if (listData.dataKota[0].jarakKota + listData.dataKota[i].jarakKota > jarak[i])
-    //     {
-    //         isJalur[i] = true;
-    //     }
-    //     else if (listData.dataKota[0].jarakKota + listData.dataKota[i].jarakKota <= jarak[i])
-    //     {
-    //         isJalur[i] = false;
-    //     }
-
-    //     // if(jarak[0] > jarak[i])
-    //     // {
-    //     //     listData.dataKota[0].jarakKota = jarak[0];
-    //     //     isJalur[i] = true;
-    //     // }
-    // }
-
-    // for (int i = 0; i < listData.top; i++)
-    // {
-    //     cout << isJalur[i] << endl;
-    // }
+    // Printing
+    if (chc == 1)
+    {
+        cout << "Masukkan Tujuan Kota: ";
+        cin >> tujuanKota;
+        dst = indexSearch(tujuanKota);
+        printSinglePath(jarak, listData.top, parent, src, dst);
+    }
+    else if (chc == 2)
+        printAllPath(jarak, listData.top, parent, src);
 }
-
-// void myFunction::jarakKota()
-// {
-
-// }
-
-// void myFunction::hubunganKota()
-// {
-//     cout << "Masukkan nama kota: ";
-//     string kota;
-//     cin >> kota;
-
-//     int n = indexSearch(kota);
-
-//     for (int i = 0; i < listData.dataKota[n].nextKota.size(); i++)
-//     {
-//         cout << listData.dataKota[i].nextKota.front().kotaTujuan << ", ";
-//     }
-// }

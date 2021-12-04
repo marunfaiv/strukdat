@@ -6,11 +6,17 @@
 
 #IncludeRegexTransform: 
 
+/home/arya/tugas/struktur-data/src/include/myFunction.h
+bits/stdc++.h
+-
+
 /home/arya/tugas/struktur-data/src/include/nodeDraw.cpp
 nodeDraw.h
 /home/arya/tugas/struktur-data/src/include/nodeDraw.h
 
 /home/arya/tugas/struktur-data/src/include/nodeDraw.h
+myFunction.h
+/home/arya/tugas/struktur-data/src/include/myFunction.h
 bits/stdc++.h
 -
 SFML/Graphics.hpp

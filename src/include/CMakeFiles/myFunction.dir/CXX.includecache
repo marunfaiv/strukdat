@@ -13,16 +13,4 @@ myFunction.h
 /home/arya/tugas/struktur-data/src/include/myFunction.h
 bits/stdc++.h
 -
-nodeDraw.h
-/home/arya/tugas/struktur-data/src/include/nodeDraw.h
-
-/home/arya/tugas/struktur-data/src/include/nodeDraw.h
-bits/stdc++.h
--
-SFML/Graphics.hpp
--
-SFML/Window.hpp
--
-SFML/System.hpp
--
 

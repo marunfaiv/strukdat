@@ -5,8 +5,8 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-    nodeDraw node;
-    myFunction data(&node);
+    myFunction data;
+    nodeDraw node(&data);
     int input;
     while (true)
     {
@@ -32,25 +32,43 @@ int main(int argc, char **argv)
         {
             sf::RenderWindow window(sf::VideoMode(1200, 600), "Map GUI");
             sf::Event event;
+            node.mainMenu(window.getSize().x, window.getSize().y);
             while (window.isOpen())
             {
                 while (window.pollEvent(event))
                 {
-                    if (event.type == sf::Event::Closed)
+                    switch (event.type)
+                    {
+                    case sf::Event::Closed:
                         window.close();
-                    // if (event.type == sf::Event::KeyEvent::)
-                    // {
-                    // }
+                        break;
+                    case sf::Event::KeyReleased:
+                        switch (event.key.code)
+                        {
+                        case sf::Keyboard::Up:
+                            node.moveUp();
+                            break;
+                        case sf::Keyboard::Down:
+                            node.moveDown();
+                            break;
+                        case sf::Keyboard::Return:
+                            switch (node.getPressedItem())
+                            {
+                            case 0:
+                                node.nodesVisual(&window);
+                                break;
+                            case 1:
+                                node.nodesVisual(&window);
+                                break;
+                            case 2:
+                                window.close();
+                                break;
+                            }
+                        }
+                    }
                 }
-                // window.setActive();
                 window.clear();
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-                    window.close();
-                // data.trialError(&window);
-                // node.drawLine();
-                // node.drawLine(100, 100);
-                // window.draw(line, 2, sf::Lines);
-                node.nodesVisual(&window);
+                node.drawMenu(&window);
                 window.display();
             }
         }
