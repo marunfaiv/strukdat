@@ -19,12 +19,12 @@ myFunction::myFunction()
     append("D", 720, 420);
     append("E", 960, 300);
 
-    connectKota("A", "B", 1);
-    connectKota("A", "C", 2);
-    connectKota("B", "D", 5);
-    connectKota("B", "E", 1);
-    connectKota("C", "D", 2);
-    connectKota("D", "E", 3);
+    connectKota("A", "B");
+    connectKota("A", "C");
+    connectKota("B", "D");
+    connectKota("B", "E");
+    connectKota("C", "D");
+    connectKota("D", "E");
     // node->nodesVisual(window);
 }
 
@@ -37,22 +37,17 @@ myFunction::~myFunction()
 // Private Function
 void myFunction::append(string nama, int x, int y)
 {
-    // this->x[listData.top] = x;
-    // this->y[listData.top] = y;
-    // this->nama[listData.top] = nama;
     listData.dataKota[listData.top].namaKota = nama;
     listData.dataKota[listData.top].x = x;
     listData.dataKota[listData.top].y = y;
     listData.dataKota[listData.top].lastNode = -1;
     listData.dataKota[listData.top].idxKota = listData.top;
-    // listData.dataKota[listData.top].jarakKota = jarak;
     listData.top++;
 
-    // node->drawCircle(x, y, nama);
-    // dataX(x);
-    // dataY(y);
-    // dataName(nama);
-    // node->(window, x, y, nama);
+    // node->getX(x);
+    // node->getY(y);
+    // node->getName(nama);
+    // node->getTotKota(listData.top);
 }
 
 bool myFunction::isFull()
@@ -100,6 +95,12 @@ string myFunction::cityNameSearch(int idx)
         }
     }
     return namaKota;
+}
+
+float myFunction::distanceMaker(int x1, int y1, int x2, int y2)
+{
+    // make rumus pitagorasnya kaka...
+    return sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
 }
 
 // Public Function
@@ -150,21 +151,6 @@ void myFunction::print()
         }
         cout << endl;
     }
-    // }
-    // else if (chc == 2)
-    // {
-    //     if (qEmpty())
-    //         cout << "Antrian kosong bosquu...";
-    //     // isi
-    //     for (int i = q.depan; i < q.belakang; i++)
-    //     {
-    //         cout << q.qData[i].namaKota << "\t";
-
-    //         cout << q.qData[i].x << "\t";
-    //         cout << q.qData[i].y << "\t";
-    //         cout << endl;
-    //     }
-    // }
 }
 
 void myFunction::pushData()
@@ -172,9 +158,7 @@ void myFunction::pushData()
     string nama;
     int x, y;
     int jarak;
-    // this->x = x;
-    // this->y = y;
-    // this->nama = nama;
+
     if (isFull())
         cout << "Wes full bro..." << endl;
     else
@@ -184,7 +168,7 @@ void myFunction::pushData()
         cout << "X dan Y: ";
         cin >> x >> y;
         // jarak = (x + y) / 2;
-        append(nama, x, y /*, jarak*/);
+        append(nama, x, y);
     }
 }
 
@@ -243,10 +227,11 @@ void myFunction::connect()
         cout << "Kuto ne ra temu bos...\n";
 }
 
-void myFunction::connectKota(string kotaAsal, string kotaTujuan, int jarak)
+void myFunction::connectKota(string kotaAsal, string kotaTujuan)
 {
     int id1 = indexSearch(kotaAsal);
     int id2 = indexSearch(kotaTujuan);
+    float jarak = distanceMaker(listData.dataKota[id1].x, listData.dataKota[id1].y, listData.dataKota[id2].x, listData.dataKota[id2].y);
 
     if (id1 >= 0 and id2 >= 0)
     {
@@ -260,11 +245,9 @@ void myFunction::connectKota(string kotaAsal, string kotaTujuan, int jarak)
         listData.dataKota[id2].hub[listData.dataKota[id2].lastNode].tujuanKota = kotaAsal;
         listData.dataKota[id2].nextNode[listData.dataKota[id2].lastNode] = id1;
         listData.dataKota[id2].hub[listData.dataKota[id2].lastNode].jarak = jarak;
-
-        // hub.kotaTujuan = kotaTujuan;
-        // hub.jarak = jarak;
-        // listData.dataKota[id1].nextKota.push_back(hub);
     }
+    else
+        cout << "Sing nggenah ae...\n";
 }
 
 void myFunction::enque()
@@ -298,48 +281,6 @@ void myFunction::deque()
     }
 }
 
-// int myFunction::dataX(int x)
-// {
-//     return x;
-// }
-
-// int myFunction::dataY(int y)
-// {
-//     return y;
-// }
-
-// string myFunction::dataName(string nama)
-// {
-//     return nama;
-// }
-
-int myFunction::getX()
-{
-    // return this->x[listData.top];
-    for (int i = 0; i < listData.top; i++)
-    {
-        return this->x[i];
-    }
-}
-
-int myFunction::getY()
-{
-    // return this->y[listData.top];
-    for (int i = 0; i < listData.top; i++)
-    {
-        return this->y[i];
-    }
-}
-
-string myFunction::getName()
-{
-    // return this->nama[listData.top];
-    for (int i = 0; i < listData.top; i++)
-    {
-        return this->nama[i];
-    }
-}
-
 void myFunction::trialError()
 {
     // cout << listData.top << endl;
@@ -367,6 +308,16 @@ void myFunction::trialError()
     // cout << getX() << "\n";
     // cout << getY() << "\n";
     // cout << getName() << "\n";
+    // cout << listData.dataKota[0].hub[0].jarak;
+    // cout << "\n";
+    // cout << listData.dataKota[1].hub[0].jarak;
+    // cout << "\n";
+    // cout << listData.dataKota[2].hub[0].jarak;
+    // cout << "\n";
+    // cout << listData.dataKota[3].hub[0].jarak;
+    // cout << "\n";
+    // checkHubungan("A", "B");
+    // checkHubungan("A", "E");
 }
 
 int myFunction::minDistance(int dist[], bool isTraveled[])
@@ -436,7 +387,7 @@ void myFunction::dijkstra()
     string namaKota, tujuanKota;
     int src, dst, chc;
 
-    cout << "Single Path / All Path: ";
+    cout << "Single Path(1) / All Path(2): ";
     cin >> chc;
     cout << "\nMasukkan Asal Kota: ";
     cin >> namaKota;
@@ -481,4 +432,26 @@ void myFunction::dijkstra()
     }
     else if (chc == 2)
         printAllPath(jarak, listData.top, parent, src);
+}
+
+bool myFunction::checkHubungan(string kotaA, string kotaB)
+{
+    int src = indexSearch(kotaA);
+    int dst = indexSearch(kotaB);
+
+    if (src >= 0 && dst >= 0)
+    {
+        for (int i = 0; i < listData.top; i++)
+        {
+
+            if (listData.dataKota[src].hub[i].tujuanKota == listData.dataKota[dst].namaKota)
+            {
+                // cout << "Hubungane enek bro..\n";
+                return true;
+            }
+        }
+        return false;
+    }
+    else
+        return false;
 }

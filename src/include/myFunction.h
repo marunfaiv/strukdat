@@ -5,7 +5,7 @@
 // #include "nodeDraw.h"
 using namespace std;
 // #define max 9
-#define batas 9
+#define batas 100
 
 class myFunction
 {
@@ -21,6 +21,41 @@ private:
     //     int jarak;
     // };
     // struct hubKota hub;
+
+    struct que
+    {
+        int depan;
+        int belakang;
+        struct qKota
+        {
+            string namaKota;
+            int x;
+            int y;
+        } qData[9];
+    } q;
+
+    bool isFull();
+    bool isEmpty();
+    bool qFull();
+    bool qEmpty();
+
+    int indexSearch(string);
+    int minDistance(int dist[], bool sptSet[]);
+
+    float distanceMaker(int, int, int, int);
+
+    string cityNameSearch(int);
+
+    // void dijkstraGraph();
+    void printHubungan(int[], int);
+    void connectKota(string, string);
+    void printAllPath(int[], int, int[], int);
+    void printSinglePath(int[], int, int[], int, int);
+
+public:
+    myFunction();
+    ~myFunction();
+
     struct stack
     {
         int top;
@@ -42,42 +77,8 @@ private:
         } dataKota[batas];
     } listData;
 
-    struct que
-    {
-        int depan;
-        int belakang;
-        struct qKota
-        {
-            string namaKota;
-            int x;
-            int y;
-        } qData[9];
-    } q;
+    bool checkHubungan(string, string);
 
-    bool isFull();
-    bool isEmpty();
-    bool qFull();
-    bool qEmpty();
-
-    int indexSearch(string);
-    int minDistance(int dist[], bool sptSet[]);
-    // int dataX(int);
-    // int dataY(int);
-
-    // string dataName(string);
-    string cityNameSearch(int);
-
-    // void dijkstraGraph();
-    void printHubungan(int[], int);
-    void connectKota(string, string, int);
-    void printAllPath(int[], int, int[], int);
-    void printSinglePath(int[], int, int[], int, int);
-
-public:
-    myFunction();
-    ~myFunction();
-
-    // void temp();
     void append(string, int, int);
     void print();
     void pushData();
@@ -88,14 +89,7 @@ public:
     void deque();
     void dijkstra();
     void hubunganKota();
-    // void jarakKota();
-    // void shortestPath();
     void trialError();
-    // void soloDijkstra();
-
-    int getX();
-    int getY();
-    string getName();
 
 protected:
 };

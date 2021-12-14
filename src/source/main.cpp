@@ -7,6 +7,9 @@ int main(int argc, char **argv)
 {
     myFunction data;
     nodeDraw node(&data);
+    // node.dataPointer(&data);
+    // printf("main: %x\n", &data);
+    // MainAwal:
     int input;
     while (true)
     {
@@ -32,9 +35,17 @@ int main(int argc, char **argv)
         {
             sf::RenderWindow window(sf::VideoMode(1200, 600), "Map GUI");
             sf::Event event;
+            // sf::Vector2i mouse_coordinate;
+            // sf::Cursor main_cur;
+            // main_cur.loadFromSystem(sf::Cursor::Arrow);
+            // window.setMouseCursor(main_cur);
             node.mainMenu(window.getSize().x, window.getSize().y);
+            // node.selectedItemIndex = 0;
             while (window.isOpen())
             {
+                // mouse_coordinate = sf::Mouse::getPosition(window);
+                // printf("%d %d\n", mouse_coordinate.x, mouse_coordinate.y);
+                // cout << "Terserahhhahaha\n";
                 while (window.pollEvent(event))
                 {
                     switch (event.type)
@@ -51,22 +62,36 @@ int main(int argc, char **argv)
                         case sf::Keyboard::Down:
                             node.moveDown();
                             break;
-                        case sf::Keyboard::Return:
+                        case sf::Keyboard::Enter:
                             switch (node.getPressedItem())
                             {
                             case 0:
                                 node.nodesVisual(&window);
+                                // goto MainAwal;
                                 break;
                             case 1:
-                                node.nodesVisual(&window);
+                                node.shortestPathVisual(&window);
+                                // goto MainAwal;
                                 break;
                             case 2:
+                                node.manualDraw(&window);
+                                // goto MainAwal;
+                                break;
+                            case 3:
+                                // node.selectedItemIndex = -1;
+                                // cout << "TERSERAH\n";
                                 window.close();
                                 break;
                             }
                         }
                     }
                 }
+                // cout << "EVENT TYPE: ";
+                // cout << event.type << endl;
+                // cout << "EVENT KEY: ";
+                // cout << event.key.code << "\n";
+                // cout << "GET PRESSED: ";
+                // cout << node.getPressedItem() << endl;
                 window.clear();
                 node.drawMenu(&window);
                 window.display();
