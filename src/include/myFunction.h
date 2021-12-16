@@ -12,7 +12,14 @@ class myFunction
 private:
     // const int max = 9;
     int x[batas], y[batas];
+    int iter = 0;
+    int src, dst;
     string nama[batas];
+    int jarak[batas];
+    bool isTraveled[batas] = {0};
+    int parent[batas];
+    int graph[batas][batas];
+    // int iter_dijkstra;
     // nodeDraw *node;
     // sf::RenderWindow *window;d
     // struct hubKota
@@ -34,12 +41,13 @@ private:
         } qData[9];
     } q;
 
+    // vector<vector<float>> distanceData;
+
     bool isFull();
     bool isEmpty();
     bool qFull();
     bool qEmpty();
 
-    int indexSearch(string);
     int minDistance(int dist[], bool sptSet[]);
 
     float distanceMaker(int, int, int, int);
@@ -51,6 +59,8 @@ private:
     void connectKota(string, string);
     void printAllPath(int[], int, int[], int);
     void printSinglePath(int[], int, int[], int, int);
+    void dataJarak(int);
+    void initDijkstra();
 
 public:
     myFunction();
@@ -77,7 +87,14 @@ public:
         } dataKota[batas];
     } listData;
 
+    // string listHubungan[batas];
+    // int dataDijkstra[batas];
+    vector<int> dataDijkstra;
+
     bool checkHubungan(string, string);
+
+    int kotaTerdekat(string);
+    int indexSearch(string);
 
     void append(string, int, int);
     void print();
@@ -95,3 +112,11 @@ protected:
 };
 
 #endif MY_FUNCTION
+
+// if (sudah_dilewati[dst_temp] == 0 && data_jarak_kota[src_temp][dst_temp] > 0 && jarak_antar_node[src_temp] + data_jarak_kota[src_temp][dst_temp] < jarak_antar_node[dst_temp])
+//         {
+//             // printf("seng masok: %d dan %d ->  %d dan %d \n", src_temp, dst_temp, jarak_antar_node[src_temp], jarak_antar_node[dst_temp]);
+//             path_temp[dst_temp] = src_temp;
+//             jarak_antar_node[dst_temp] = jarak_antar_node[src_temp] + data_jarak_kota[src_temp][dst_temp];
+//             // printf("sak marine diproses %d\n", jarak_antar_node[dst_temp]);
+//         }

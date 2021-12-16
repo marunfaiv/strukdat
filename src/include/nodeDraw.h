@@ -23,15 +23,13 @@ private:
     } data[100];
 
     myFunction *func;
-    // int x, y;
     int tambah_kota;
-    // int x[100], y[100];
     int xmouse[100], ymouse[100];
-    // string nama[100], listKota[100];
     int abLine, acLine, bdLine, cdLine, beLine, deLine;
     int limit;
     ostringstream text;
     bool hasLimit, isSelected, isClicked, flag, flag2;
+    vector<int> buffer;
 
     sf::Text txtLabel, menu[max_menu], authorName, txtBox;
     sf::Text txtQ;
@@ -42,6 +40,11 @@ private:
     sf::Vector2i mouse_coordinate;
     sf::Cursor main_cursor;
     sf::Touch mouse;
+    // sf::Vertex line[] = {
+    //     sf::Vertex(sf::Vector2f(x,y)),
+    // };
+
+    bool isPath(int,int);
 
     void setWindow();
     void drawAppend(string, int, int);

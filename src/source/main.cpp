@@ -33,6 +33,14 @@ int main(int argc, char **argv)
             data.dijkstra();
         else if (input == 7)
         {
+            // int chc;
+            // cout << "1. Show Map Visual\n2. Show Dijkstra Visual\n";
+            // cout << "Pilihanmu: ";
+            // cin >> chc;
+            // if(chc == 1)
+            //     node.nodesVisual();
+            // else if(chc == 2)
+            //     node.shortestPathVisual();
             sf::RenderWindow window(sf::VideoMode(1200, 600), "Map GUI");
             sf::Event event;
             // sf::Vector2i mouse_coordinate;
@@ -100,6 +108,7 @@ int main(int argc, char **argv)
         else if (input == 8)
             data.trialError();
     }
-
     return 0;
 }
+
+// garis_hubung[j].setSize(Vector2f(Database->pitagoras((float)x_offset + Database->kota[i].x, (float)y_offset - Database->kota[i].y, (float)x_offset + Database->kota[Database->kota[i].hubungan_kota[temp_j]].x, (float)y_offset - Database->kota[Database->kota[i].hubungan_kota[temp_j]].y), 5));
