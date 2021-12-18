@@ -40,7 +40,7 @@ void nodeDraw::setWindow()
     this->window = window;
 }
 
-void nodeDraw::drawLine(sf::RenderWindow *window, int x1, int y1, int x2, int y2)
+void nodeDraw::drawLine(sf::RenderWindow *window, int x1, int y1, int x2, int y2, sf::Color color)
 {
     sf::Vertex line[] = {
         sf::Vertex(sf::Vector2f(x1, y1)),
@@ -48,7 +48,7 @@ void nodeDraw::drawLine(sf::RenderWindow *window, int x1, int y1, int x2, int y2
         // sf::Vertex(sf::Color::Yellow),
         // line->color.Yellow;
     };
-    line->color = sf::Color::Yellow;
+    line->color = color;
     window->draw(line, 2, sf::Lines);
 }
 
@@ -148,33 +148,68 @@ void nodeDraw::moveDown()
 
 bool nodeDraw::isPath(int src, int dst)
 {
-    for (size_t i = 0; i < buffer.size() - 1; i++)
+    // cout << func->dataDijkstra.size() << endl;
+    for (int i = 1; i < func->dataDijkstra.size(); i++)
     {
-        if (buffer[i] == src and buffer[i + 1] == dst)
+        // cout << func->dataDijkstra[i] << endl;
+        if (func->dataDijkstra[i - 1] == src and func->dataDijkstra[i] == dst)
+        {
+            // cout << func->dataDijkstra[i] << endl;
             return true;
+        }
     }
     return false;
 }
 
-void nodeDraw::nodesVisual(sf::RenderWindow *window)
+void nodeDraw::visualCLI()
+{
+    int chc;
+    cout << "1. Show Map Visual\n2. Show Dijkstra Visual\n";
+    cout << "Pilihanmu: ";
+    cin >> chc;
+    if (chc == 1)
+    {
+        nodesVisual();
+    }
+    else if (chc == 2)
+    {
+        func->dijkstra();
+        shortestPathVisual(true);
+    }
+    else if (chc == 3)
+    {
+        // for (size_t i = 0; i < buffer.size(); i++)
+        // {
+        //     cout << buffer[i] << endl;
+        // }
+        cout << func->dataDijkstra.size() << endl;
+    }
+    else
+        cout << "Milih sing nggenah anying\n";
+}
+void nodeDraw::nodesVisual()
 {
     // Anggap saja ini screen x dan y aku bagi /10 semuaz
 
-    string nama;
-    while (window->isOpen())
+    sf::RenderWindow window(sf::VideoMode(1200, 600), "Map GUI");
+    string nama, hubungan;
+    while (window.isOpen())
     {
-        while (window->pollEvent(event))
+        while (window.pollEvent(event))
         {
             switch (event.type)
             {
             case sf::Event::Closed:
-                window->close();
+                window.close();
                 break;
             }
         }
-        window->clear();
+        window.clear();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-            return;
+        {
+            window.close();
+            break;
+        }
         // if(sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
@@ -198,7 +233,7 @@ void nodeDraw::nodesVisual(sf::RenderWindow *window)
         if (isClicked)
         {
             // tambah_kota++;
-            mouse_coordinate = sf::Mouse::getPosition(*window);
+            mouse_coordinate = sf::Mouse::getPosition(window);
             // Buat Gambar
             // drawCircle(window, mouse_coordinate[tambah_kota].x, mouse_coordinate[tambah_kota].y, nama);
             // cout << "AAAAA\n";
@@ -213,6 +248,10 @@ void nodeDraw::nodesVisual(sf::RenderWindow *window)
                 // func->append(nama, mouse_coordinate.x, mouse_coordinate.y);
                 // cout << nama << endl;
                 func->append(nama, mouse_coordinate.x, mouse_coordinate.y);
+
+                // cout << "Hubungkan dengan Kota: ";
+                // cin >> hubungan;
+                // func->connectKota(nama, hubungan);
                 // drawAppend(nama, mouse_coordinate.x, mouse_coordinate.y);
                 // cout << "X: " << data[tambah_kota].x << "\n";
                 // cout << "Y: " << data[tambah_kota].y << "\n";
@@ -224,135 +263,82 @@ void nodeDraw::nodesVisual(sf::RenderWindow *window)
 
         for (int i = 0; i < func->listData.top; i++)
         {
-            drawCircle(window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[i].namaKota);
+            drawCircle(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[i].namaKota);
             for (int j = 0; j < func->listData.top; j++)
             {
                 if (func->checkHubungan(func->listData.dataKota[i].namaKota, func->listData.dataKota[j].namaKota) == true)
                 {
-                    drawLine(window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[j].x, func->listData.dataKota[j].y);
+                    drawLine(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[j].x, func->listData.dataKota[j].y, sf::Color::Yellow);
                 }
             }
         }
-
-        window->display();
+        window.display();
     }
+    return;
 }
 
-void nodeDraw::shortestPathVisual(sf::RenderWindow *window)
+void nodeDraw::shortestPathVisual(bool isDijkstra)
 {
-    // txtQ.setString("Pilih Kota: ");
-    // txtQ.setPosition(sf::Vector2f(0, 0));
-    // txtOutput1.setPosition(sf::Vector2f(150, 0));
-    // txtOutput2.setPosition(sf::Vector2f(200, 0));
-
-    // textBox(30, sf::Color::White, true);
-    // setPosition(sf::Vector2f(150, 0)); // set Pos text
-    sf::CircleShape kota[func->listData.top];
-    sf::Text namaKota[func->listData.top];
-
-    buffer.resize(func->dataDijkstra.size());
-    buffer = func->dataDijkstra;
-
-    string kotaAsal, kotaTujuan;
-    cout << "Masukkan Kota Asal: ";
-    cin >> kotaAsal;
-    cout << "Masukkan Kota Tujuan: ";
-    cin >> kotaTujuan;
-
-    int asal = func->indexSearch(kotaAsal);
-    int tujuan = func->indexSearch(kotaTujuan);
-    int lineNodes = 0;
-    int j = 0;
-
-    for (int i = 0; i < func->listData.top; i++)
+    sf::RenderWindow window(sf::VideoMode(1200, 600), "Map GUI");
+    sf::Text jarak;
+    while (window.isOpen())
     {
-        if (func->listData.dataKota[i].lastNode > -1)
-        {
-            lineNodes += func->listData.dataKota[i].lastNode + 1;
-        }
-    }
-
-    sf::RectangleShape garisHubung[lineNodes];
-
-    for (int i = 0; i < func->listData.top; i++)
-    {
-        // drawCircle(window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[i].namaKota);
-        kota[i].setFillColor(sf::Color::White);
-        kota[i].setRadius(30);
-        kota[i].setPosition(func->listData.dataKota[i].x, func->listData.dataKota[i].y);
-
-        namaKota[i].setFont(font);
-        namaKota[i].setString(func->listData.dataKota[i].namaKota);
-        namaKota[i].setCharacterSize(20);
-        namaKota[i].setFillColor(sf::Color::Red);
-        namaKota[i].setPosition(sf::Vector2f(func->listData.dataKota[i].x - 5, func->listData.dataKota[i].y + 20));
-        namaKota[i].setOutlineThickness(2);
-
-        // garisHubung[i].setOutlineColor(sf::Color::Red);
-
-        int dst = func->indexSearch(func->listData.dataKota->hub[i].tujuanKota);
-        if (func->listData.dataKota[i].lastNode > -1)
-        {
-            int temp_j = 0;
-            while (j < lineNodes)
-            {
-                if (temp_j < lineNodes)
-                    break;
-
-                // garisHubung[j].setSize(sf::Vector2f(func->distanceMaker()))
-                garisHubung[j].setPosition(func->listData.dataKota[i].x, func->listData.dataKota[i].y);
-                garisHubung[j].setFillColor(sf::Color::White);
-
-                if (isPath(i, dst) == true)
-                    garisHubung[j].setOutlineColor(sf::Color::Green);
-                else
-                    garisHubung[j].setOutlineColor(sf::Color::Red);
-                j++;
-                temp_j++;
-            }
-        }
-    }
-
-    for(size_t i = 0; i < buffer.size(); i++)
-    {
-        kota[buffer[i]].setOutlineColor(sf::Color::Green);
-        kota[buffer[i]].setOutlineThickness(3);
-    }
-
-    while (window->isOpen())
-    {
-        while (window->pollEvent(event))
+        while (window.pollEvent(event))
         {
             switch (event.type)
             {
             case sf::Event::Closed:
-                window->close();
+                window.close();
                 break;
-            case sf::Event::TextEntered:
-                typeOn(event);
-                break;
+                // case sf::Event::TextEntered:
+                //     typeOn(event);
+                //     break;
             }
         }
-        window->clear();
+        window.clear();
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         {
+            window.close();
             return;
         }
-        window->draw(txtQ);
-        for (int i = 0; i < lineNodes; i++)
+
+        for (int i = 0; i < listData.top; i++)
         {
-            window->draw(garisHubung[i]);
-            // window->draw(namaKota[i]);
+            for (int j = 0; j < listData.top; j++)
+            {
+                // int dst = func->listData.dataKota[i].hub[j].idxTujuanKota;
+                // int dst = func->indexSearch(func->listData.dataKota[i].hub[j].tujuanKota);
+                if (isDijkstra)
+                {
+                    // cout << i << " " << dst << endl;
+                    // cout << isPath(i, j) << endl;
+                    if (isPath(i, j))
+                    {
+                        if (func->checkHubungan(func->listData.dataKota[i].namaKota, func->listData.dataKota[j].namaKota) == true)
+                        {
+                            drawLine(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[j].x, func->listData.dataKota[j].y, sf::Color::Green);
+                        }
+                    }
+                    else if (!isPath(i, j))
+                    {
+                        // cout << "Memekodon\";
+                        // cout << dst << endl;
+                        // cout << isPath(i, dst) << endl;
+                        if (func->checkHubungan(func->listData.dataKota[i].namaKota, func->listData.dataKota[j].namaKota) == true)
+                        {
+                            drawLine(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[j].x, func->listData.dataKota[j].y, sf::Color::Red);
+                        }
+                        // drawLine(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[j].x, func->listData.dataKota[j].y, sf::Color::Red);
+                    }
+                }
+            }
+            drawCircle(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[i].namaKota);
         }
 
-        for (int i = 0; i < func->listData.top; i++)
-        {
-            window->draw(kota[i]);
-            window->draw(namaKota[i]);
-        }
+        
 
-        window->display();
+        window.display();
     }
     return;
 }

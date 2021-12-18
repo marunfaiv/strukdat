@@ -20,90 +20,39 @@ int main(int argc, char **argv)
         if (input == 0)
             break;
         else if (input == 1)
+        {
             data.print();
+            // return 0;
+        }
         else if (input == 2)
+        {
             data.pushData();
+            // return 0;
+        }
         else if (input == 3)
+        {
             data.popData();
+            // return 0;
+        }
         else if (input == 4)
+        {
             data.searchIndexKota();
+            // return 0;
+        }
         else if (input == 5)
+        {
             data.connect();
+            // return 0;
+        }
         else if (input == 6)
+        {
             data.dijkstra();
+            // return 0;
+        }
         else if (input == 7)
         {
-            // int chc;
-            // cout << "1. Show Map Visual\n2. Show Dijkstra Visual\n";
-            // cout << "Pilihanmu: ";
-            // cin >> chc;
-            // if(chc == 1)
-            //     node.nodesVisual();
-            // else if(chc == 2)
-            //     node.shortestPathVisual();
-            sf::RenderWindow window(sf::VideoMode(1200, 600), "Map GUI");
-            sf::Event event;
-            // sf::Vector2i mouse_coordinate;
-            // sf::Cursor main_cur;
-            // main_cur.loadFromSystem(sf::Cursor::Arrow);
-            // window.setMouseCursor(main_cur);
-            node.mainMenu(window.getSize().x, window.getSize().y);
-            // node.selectedItemIndex = 0;
-            while (window.isOpen())
-            {
-                // mouse_coordinate = sf::Mouse::getPosition(window);
-                // printf("%d %d\n", mouse_coordinate.x, mouse_coordinate.y);
-                // cout << "Terserahhhahaha\n";
-                while (window.pollEvent(event))
-                {
-                    switch (event.type)
-                    {
-                    case sf::Event::Closed:
-                        window.close();
-                        break;
-                    case sf::Event::KeyReleased:
-                        switch (event.key.code)
-                        {
-                        case sf::Keyboard::Up:
-                            node.moveUp();
-                            break;
-                        case sf::Keyboard::Down:
-                            node.moveDown();
-                            break;
-                        case sf::Keyboard::Enter:
-                            switch (node.getPressedItem())
-                            {
-                            case 0:
-                                node.nodesVisual(&window);
-                                // goto MainAwal;
-                                break;
-                            case 1:
-                                node.shortestPathVisual(&window);
-                                // goto MainAwal;
-                                break;
-                            case 2:
-                                node.manualDraw(&window);
-                                // goto MainAwal;
-                                break;
-                            case 3:
-                                // node.selectedItemIndex = -1;
-                                // cout << "TERSERAH\n";
-                                window.close();
-                                break;
-                            }
-                        }
-                    }
-                }
-                // cout << "EVENT TYPE: ";
-                // cout << event.type << endl;
-                // cout << "EVENT KEY: ";
-                // cout << event.key.code << "\n";
-                // cout << "GET PRESSED: ";
-                // cout << node.getPressedItem() << endl;
-                window.clear();
-                node.drawMenu(&window);
-                window.display();
-            }
+            node.visualCLI();
+            // return 0;
         }
         else if (input == 8)
             data.trialError();

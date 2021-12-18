@@ -19,6 +19,7 @@ private:
     bool isTraveled[batas] = {0};
     int parent[batas];
     int graph[batas][batas];
+    int pathCheck[batas][batas];
     // int iter_dijkstra;
     // nodeDraw *node;
     // sf::RenderWindow *window;d
@@ -50,13 +51,10 @@ private:
 
     int minDistance(int dist[], bool sptSet[]);
 
-    float distanceMaker(int, int, int, int);
-
     string cityNameSearch(int);
 
     // void dijkstraGraph();
     void printHubungan(int[], int);
-    void connectKota(string, string);
     void printAllPath(int[], int, int[], int);
     void printSinglePath(int[], int, int[], int, int);
     void dataJarak(int);
@@ -83,6 +81,7 @@ public:
             {
                 int jarak;
                 string tujuanKota;
+                int idxTujuanKota;
             } hub[batas];
         } dataKota[batas];
     } listData;
@@ -92,11 +91,14 @@ public:
     vector<int> dataDijkstra;
 
     bool checkHubungan(string, string);
-
+    bool isPath(int, int);
     int kotaTerdekat(string);
     int indexSearch(string);
 
+    float distanceMaker(int, int, int, int);
+
     void append(string, int, int);
+    void connectKota(string, string);
     void print();
     void pushData();
     void popData();

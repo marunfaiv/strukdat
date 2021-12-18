@@ -48,7 +48,7 @@ private:
 
     void setWindow();
     void drawAppend(string, int, int);
-    void drawLine(sf::RenderWindow *window, int, int, int, int);
+    void drawLine(sf::RenderWindow *window, int, int, int, int, sf::Color);
     void drawCircle(sf::RenderWindow *window, int, int, string);
     void init();
 
@@ -73,8 +73,9 @@ public:
     // buat di class nodeDraw
     int selectedItemIndex;
 
-    void shortestPathVisual(sf::RenderWindow *window);
-    void nodesVisual(sf::RenderWindow *window);
+    void visualCLI();
+    void shortestPathVisual(bool);
+    void nodesVisual();
     void drawMenu(sf::RenderWindow *window);
     void mainMenu(int, int);
     void moveUp();

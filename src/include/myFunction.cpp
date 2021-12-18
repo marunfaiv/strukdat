@@ -219,12 +219,14 @@ void myFunction::connect()
         listData.dataKota[id1].hub[listData.dataKota[id1].lastNode].tujuanKota = kota2;
         listData.dataKota[id1].nextNode[listData.dataKota[id1].lastNode] = id2;
         listData.dataKota[id1].hub[listData.dataKota[id1].lastNode].jarak = jarak;
+        listData.dataKota[id1].hub[listData.dataKota[id1].lastNode].idxTujuanKota = id2;
 
         /* ini untuk connect 2 arah */
         listData.dataKota[id2].lastNode++;
-        listData.dataKota[id2].hub[listData.dataKota[id2].lastNode].tujuanKota = kota1;
         listData.dataKota[id2].nextNode[listData.dataKota[id2].lastNode] = id1;
+        listData.dataKota[id2].hub[listData.dataKota[id2].lastNode].tujuanKota = kota1;
         listData.dataKota[id2].hub[listData.dataKota[id2].lastNode].jarak = jarak;
+        listData.dataKota[id1].hub[listData.dataKota[id2].lastNode].idxTujuanKota = id1;
     }
     else
         cout << "Kuto ne ra temu bos...\n";
@@ -242,12 +244,14 @@ void myFunction::connectKota(string kotaAsal, string kotaTujuan)
         listData.dataKota[id1].hub[listData.dataKota[id1].lastNode].tujuanKota = kotaTujuan;
         listData.dataKota[id1].nextNode[listData.dataKota[id1].lastNode] = id2;
         listData.dataKota[id1].hub[listData.dataKota[id1].lastNode].jarak = jarak;
+        listData.dataKota[id1].hub[listData.dataKota[id1].lastNode].idxTujuanKota = id2;
 
         /* ini untuk connect 2 arah */
         listData.dataKota[id2].lastNode++;
         listData.dataKota[id2].hub[listData.dataKota[id2].lastNode].tujuanKota = kotaAsal;
         listData.dataKota[id2].nextNode[listData.dataKota[id2].lastNode] = id1;
         listData.dataKota[id2].hub[listData.dataKota[id2].lastNode].jarak = jarak;
+        listData.dataKota[id2].hub[listData.dataKota[id2].lastNode].idxTujuanKota = id1;
     }
     else
         cout << "Sing nggenah ae...\n";
@@ -321,6 +325,27 @@ void myFunction::trialError()
     // cout << "\n";
     // checkHubungan("A", "B");
     // checkHubungan("A", "E");
+
+    // for (int i = 0; i < listData.top; i++)
+    // {
+    //     for (int j = 0; j < listData.top; j++)
+    //     {
+    //         int indexKota = indexSearch(listData.dataKota[i].hub[j].tujuanKota);
+    //         cout << "Hubungan Kota " << i << "->" << indexKota << endl;
+    //     }
+    //     cout << endl;
+    // }
+
+    // for (int i = 0; i < listData.top; i++)
+    // {
+    //     for (int j = 0; j < listData.top; j++)
+    //     {
+    //         cout << listData.dataKota[i].hub[j].idxTujuanKota;
+    //         // cout << listData.dataKota[i].nextNode[j];
+    //         // cout << listData.dataKota[i].hub[j].tujuanKota;
+    //     }
+    //     cout << endl;
+    // }
 }
 
 int myFunction::minDistance(int dist[], bool isTraveled[])
@@ -371,11 +396,6 @@ void myFunction::printHubungan(int parent[], int i)
 {
     dataDijkstra.resize(iter + 1);
     dataDijkstra[iter] = i; // buat nampung data hubungan kota
-    // for (int i = 0; i < iter; i++)
-    // {
-    //     cout << "\nDATA DIJKSTRA ke-" << iter << ": ";
-    //     cout << dataDijkstra[i] << endl;
-    // }
 
     if (iter > listData.top)
         return;
@@ -385,6 +405,8 @@ void myFunction::printHubungan(int parent[], int i)
     printHubungan(parent, parent[i]);
     string kotaHubungan = cityNameSearch(i);
     cout << "->" << kotaHubungan;
+
+    // cout << "\nUkuran data dijkstra: " << dataDijkstra.size() << endl;
 }
 
 void myFunction::dataJarak(int dst)
@@ -392,6 +414,7 @@ void myFunction::dataJarak(int dst)
     string dstCty = cityNameSearch(dst);
     for (int i = 0; i < listData.top; i++)
     {
+        // string dstCty = cityNameSearch(dst);
         string srcCty = cityNameSearch(i);
         if (checkHubungan(srcCty, dstCty) == true)
         {
@@ -412,6 +435,10 @@ void myFunction::initDijkstra()
         jarak[i] = INT_MAX;
         isTraveled[i] = false;
     }
+    // if (!dataDijkstra.empty())
+    // {
+    //     cout << "Debug: Gagal mengosongkan hasil dijkstra!\n";
+    // }
 }
 
 void myFunction::dijkstra()
@@ -492,10 +519,14 @@ void myFunction::dijkstra()
     // int n = (sizeof(dataDijkstra) / sizeof(*dataDijkstra));
     for (int i = 0, j = dataDijkstra.size() - 1; i < j; i++, j--)
     {
-        int t;
-        t = dataDijkstra[j];
-        dataDijkstra[j] = dataDijkstra[i];
-        dataDijkstra[i] = t;
+        // int t;
+        // t = dataDijkstra[j];
+        // dataDijkstra[j] = dataDijkstra[i];
+        // dataDijkstra[i] = t;
+
+        dataDijkstra[j] ^= dataDijkstra[i];
+        dataDijkstra[i] ^= dataDijkstra[j] ^ dataDijkstra[i];
+        dataDijkstra[j] ^= dataDijkstra[j];
     }
 }
 
@@ -519,6 +550,22 @@ bool myFunction::checkHubungan(string kotaA, string kotaB)
     }
     else
         return false;
+}
+
+bool myFunction::isPath(int src, int dst)
+{
+    // string dstCty = cityNameSearch(dst);
+    // for (int i = 0; i < listData.top; i++)
+    // {
+    //     string srcCty = cityNameSearch(i);
+    //     for (int j = 0; j < listData.top; j++)
+    //     {
+    //         if (checkHubungan(srcCty, dstCty))
+    //         {
+    //             pathCheck[i][dst] = i;
+    //         }
+    //     }
+    // }
 }
 
 int myFunction::kotaTerdekat(string kota)
