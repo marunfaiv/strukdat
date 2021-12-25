@@ -13,6 +13,8 @@ myFunction::myFunction()
     isTraveled[listData.top] = {false};
     parent[listData.top] = {0};
 
+    // dataDijkstra.resize(listData.top);
+
     // struct hubKota hub;
     // vector<struct kota> dataKota;
 
@@ -46,6 +48,8 @@ void myFunction::append(string nama, int x, int y)
     listData.dataKota[listData.top].lastNode = -1;
     listData.dataKota[listData.top].idxKota = listData.top;
     listData.top++;
+
+    cout << "cek terpanggil atau tidak\n";
 
     // node->getX(x);
     // node->getY(y);
@@ -207,7 +211,7 @@ void myFunction::connect()
     cin >> kota1;
     cin >> kota2;
 
-    cout << "Masukkan jarak antar Kota";
+    // cout << "Masukkan jarak antar Kota";
     // int jarak;
     // cin >> jarak;
     int id1 = indexSearch(kota1);
@@ -255,6 +259,50 @@ void myFunction::connectKota(string kotaAsal, string kotaTujuan)
     }
     else
         cout << "Sing nggenah ae...\n";
+}
+
+void myFunction::multipleConnection()
+{
+    int idx1, idx2;
+    float jarak_kota;
+    string kota_yang_ingin_dihubungkan;
+    cout << "masukkan nama kota yang ingin dihubungkan: ";
+    cin >> kota_yang_ingin_dihubungkan;
+    idx1 = indexSearch(kota_yang_ingin_dihubungkan);
+
+    cout << "masukkan berapa banyak kota yang ingin dihubungkan: ";
+    int jumlah_kota;
+    cin >> jumlah_kota;
+
+    // algoritma menghubungkan kota
+    for (int i = 0; i < jumlah_kota; i++)
+    {
+        cout << "Masukkan nama kota tujuan: ";
+        string kota_hubungan;
+        cin >> kota_hubungan;
+        idx2 = indexSearch(kota_hubungan);
+        jarak_kota = distanceMaker(listData.dataKota[idx1].x, listData.dataKota[idx1].y, listData.dataKota[idx2].x, listData.dataKota[idx2].y);
+        // cout << idx2 << endl;
+        // cout << jarak_kota << endl;
+
+        // hubung kota
+        if (idx1 >= 0 && idx2 >= 0)
+        {
+            // cout << "aaa\n";
+            listData.dataKota[idx1].lastNode++;
+            listData.dataKota[idx1].hub[listData.dataKota[idx1].lastNode].tujuanKota = kota_hubungan;
+            listData.dataKota[idx1].nextNode[listData.dataKota[idx1].lastNode] = idx2;
+            listData.dataKota[idx1].hub[listData.dataKota[idx1].lastNode].jarak = jarak_kota;
+            listData.dataKota[idx1].hub[listData.dataKota[idx1].lastNode].idxTujuanKota = idx2;
+
+            /* ini untuk connect 2 arah */
+            listData.dataKota[idx2].lastNode++;
+            listData.dataKota[idx2].hub[listData.dataKota[idx2].lastNode].tujuanKota = kota_yang_ingin_dihubungkan;
+            listData.dataKota[idx2].nextNode[listData.dataKota[idx2].lastNode] = idx1;
+            listData.dataKota[idx2].hub[listData.dataKota[idx2].lastNode].jarak = jarak_kota;
+            listData.dataKota[idx2].hub[listData.dataKota[idx2].lastNode].idxTujuanKota = idx1;
+        }
+    }
 }
 
 void myFunction::enque()
@@ -464,8 +512,8 @@ void myFunction::dijkstra()
     int src, dst, chc;
     this->src = src;
     this->dst = dst;
-    cout << "Single Path(1) / All Path(2): ";
-    cin >> chc;
+    // cout << "Single Path(1) / All Path(2): ";
+    // cin >> chc;
     cout << "\nMasukkan Asal Kota: ";
     cin >> namaKota;
 
@@ -495,28 +543,30 @@ void myFunction::dijkstra()
     }
 
     // Printing
-    if (chc == 1)
-    {
-        cout << "Masukkan Tujuan Kota: ";
-        cin >> tujuanKota;
-        dst = indexSearch(tujuanKota);
-        printSinglePath(jarak, listData.top, parent, src, dst);
-        // reset value
-        // jarak[listData.top] = {-1};
-        // parent[listData.top] = {-1};
-        // isTraveled[listData.top] = {0};
-    }
-    else if (chc == 2)
-    {
-        printAllPath(jarak, listData.top, parent, src);
-        // reset value
-        // jarak[listData.top] = {-1};
-        // parent[listData.top] = {-1};
-        // isTraveled[listData.top] = {0};
-    }
+    // if (chc == 1)
+    // {
+    cout << "Masukkan Tujuan Kota: ";
+    cin >> tujuanKota;
+    dst = indexSearch(tujuanKota);
+    printSinglePath(jarak, listData.top, parent, src, dst);
+    // reset value
+    // jarak[listData.top] = {-1};
+    // parent[listData.top] = {-1};
+    // isTraveled[listData.top] = {0};
+    // }
+    // else if (chc == 2)
+    // {
+    //     printAllPath(jarak, listData.top, parent, src);
+    //     // reset value
+    //     // jarak[listData.top] = {-1};
+    //     // parent[listData.top] = {-1};
+    //     // isTraveled[listData.top] = {0};
+    // }
 
     // olah data dijkstra
     // int n = (sizeof(dataDijkstra) / sizeof(*dataDijkstra));
+
+    // xor operation
     for (int i = 0, j = dataDijkstra.size() - 1; i < j; i++, j--)
     {
         // int t;
@@ -526,7 +576,7 @@ void myFunction::dijkstra()
 
         dataDijkstra[j] ^= dataDijkstra[i];
         dataDijkstra[i] ^= dataDijkstra[j] ^ dataDijkstra[i];
-        dataDijkstra[j] ^= dataDijkstra[j];
+        dataDijkstra[j] ^= dataDijkstra[i];
     }
 }
 

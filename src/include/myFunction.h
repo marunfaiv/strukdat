@@ -104,6 +104,7 @@ public:
     void popData();
     void searchIndexKota();
     void connect();
+    void multipleConnection();
     void enque();
     void deque();
     void dijkstra();

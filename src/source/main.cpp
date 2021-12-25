@@ -13,7 +13,7 @@ int main(int argc, char **argv)
     int input;
     while (true)
     {
-        cout << "\n0. Exit\n1. Print\n2. Push\n3. Pop\n4. Search\n5. Connect\n6. Cari Jalur\n7. Visual"
+        cout << "\n0. Exit\n1. Print\n2. Push\n3. Pop\n4. Search\n5. Connect(1 kota)\n6. Connect(banyak kota)\n7. Cari Jalur\n8. Visual"
              << endl;
         cout << "Pilihanmu adalah: ";
         cin >> input;
@@ -46,15 +46,20 @@ int main(int argc, char **argv)
         }
         else if (input == 6)
         {
-            data.dijkstra();
-            // return 0;
+            data.multipleConnection();
         }
         else if (input == 7)
         {
-            node.visualCLI();
+            data.dijkstra();
             // return 0;
         }
         else if (input == 8)
+        {
+            // node.visualCLI();
+            node.nodesVisual();
+            // return 0;
+        }
+        else if (input == 9)
             data.trialError();
     }
     return 0;

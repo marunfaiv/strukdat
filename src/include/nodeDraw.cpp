@@ -164,7 +164,7 @@ bool nodeDraw::isPath(int src, int dst)
 void nodeDraw::visualCLI()
 {
     int chc;
-    cout << "1. Show Map Visual\n2. Show Dijkstra Visual\n";
+    cout << "1. Visualisasi\n";
     cout << "Pilihanmu: ";
     cin >> chc;
     if (chc == 1)
@@ -173,7 +173,7 @@ void nodeDraw::visualCLI()
     }
     else if (chc == 2)
     {
-        func->dijkstra();
+        // func->dijkstra();
         shortestPathVisual(true);
     }
     else if (chc == 3)
@@ -193,6 +193,19 @@ void nodeDraw::nodesVisual()
 
     sf::RenderWindow window(sf::VideoMode(1200, 600), "Map GUI");
     string nama, hubungan;
+    int pilihan;
+    bool isDijkstra = false;
+
+    cout << "Tunjukkan Visual (1)\nTunjukkan Dijkstra (2)\n";
+    cin >> pilihan;
+    if (pilihan == 1)
+        isDijkstra = false;
+    else if (pilihan == 2)
+    {
+        func->dijkstra();
+        isDijkstra = true;
+    }
+
     while (window.isOpen())
     {
         while (window.pollEvent(event))
@@ -220,7 +233,7 @@ void nodeDraw::nodesVisual()
             }
             // cout << tambah_kota << endl;
             isClicked = true;
-            flag2 = true;
+            // flag2 = true;
         }
         else if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
@@ -233,7 +246,20 @@ void nodeDraw::nodesVisual()
         if (isClicked)
         {
             // tambah_kota++;
-            mouse_coordinate = sf::Mouse::getPosition(window);
+            // cout << "aaaa\n";
+            if (flag2)
+            {
+                // cout << "ini berapa kali?\n";
+                mouse_coordinate = sf::Mouse::getPosition(window);
+                cout << "Masukkan Nama Kota: ";
+                cin >> nama;
+                func->append(nama, mouse_coordinate.x, mouse_coordinate.y);
+                // int x = mouse_coordinate.x;
+                // int y = mouse_coordinate.y;
+                // cout << mouse_coordinate.x << endl;
+                // cout << mouse_coordinate.y << endl;
+                flag2 = false;
+            }
             // Buat Gambar
             // drawCircle(window, mouse_coordinate[tambah_kota].x, mouse_coordinate[tambah_kota].y, nama);
             // cout << "AAAAA\n";
@@ -241,14 +267,9 @@ void nodeDraw::nodesVisual()
         }
         else if (!isClicked)
         {
-            if (flag2)
+            if (!flag2)
             {
-                cout << "Masukkan Nama Kota: ";
-                cin >> nama;
-                // func->append(nama, mouse_coordinate.x, mouse_coordinate.y);
-                // cout << nama << endl;
-                func->append(nama, mouse_coordinate.x, mouse_coordinate.y);
-
+                // cout << "Berapa kali terloop?\n";
                 // cout << "Hubungkan dengan Kota: ";
                 // cin >> hubungan;
                 // func->connectKota(nama, hubungan);
@@ -256,7 +277,7 @@ void nodeDraw::nodesVisual()
                 // cout << "X: " << data[tambah_kota].x << "\n";
                 // cout << "Y: " << data[tambah_kota].y << "\n";
                 // cout << "Nama: " << data[tambah_kota].namaKota << endl;
-                flag2 = false;
+                flag2 = true;
             }
             // continue;
         }
@@ -266,9 +287,35 @@ void nodeDraw::nodesVisual()
             drawCircle(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[i].namaKota);
             for (int j = 0; j < func->listData.top; j++)
             {
-                if (func->checkHubungan(func->listData.dataKota[i].namaKota, func->listData.dataKota[j].namaKota) == true)
+                if (isDijkstra)
                 {
-                    drawLine(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[j].x, func->listData.dataKota[j].y, sf::Color::Yellow);
+                    // drawCircle(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[i].namaKota);
+                    // cout << i << " " << dst << endl;
+                    // cout << isPath(i, j) << endl;
+                    if (isPath(i, j))
+                    {
+                        if (func->checkHubungan(func->listData.dataKota[i].namaKota, func->listData.dataKota[j].namaKota) == true)
+                        {
+                            drawLine(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[j].x, func->listData.dataKota[j].y, sf::Color::Green);
+                        }
+                    }
+                    else if (!isPath(i, j))
+                    {
+                        // cout << dst << endl;
+                        // cout << isPath(i, dst) << endl;
+                        if (func->checkHubungan(func->listData.dataKota[i].namaKota, func->listData.dataKota[j].namaKota) == true)
+                        {
+                            drawLine(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[j].x, func->listData.dataKota[j].y, sf::Color::Red);
+                        }
+                        // drawLine(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[j].x, func->listData.dataKota[j].y, sf::Color::Red);
+                    }
+                }
+                else
+                {
+                    if (func->checkHubungan(func->listData.dataKota[i].namaKota, func->listData.dataKota[j].namaKota) == true)
+                    {
+                        drawLine(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[j].x, func->listData.dataKota[j].y, sf::Color::Yellow);
+                    }
                 }
             }
         }
@@ -281,6 +328,7 @@ void nodeDraw::shortestPathVisual(bool isDijkstra)
 {
     sf::RenderWindow window(sf::VideoMode(1200, 600), "Map GUI");
     sf::Text jarak;
+    func->dijkstra();
     while (window.isOpen())
     {
         while (window.pollEvent(event))
@@ -311,6 +359,7 @@ void nodeDraw::shortestPathVisual(bool isDijkstra)
                 // int dst = func->indexSearch(func->listData.dataKota[i].hub[j].tujuanKota);
                 if (isDijkstra)
                 {
+                    drawCircle(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[i].namaKota);
                     // cout << i << " " << dst << endl;
                     // cout << isPath(i, j) << endl;
                     if (isPath(i, j))
@@ -322,7 +371,6 @@ void nodeDraw::shortestPathVisual(bool isDijkstra)
                     }
                     else if (!isPath(i, j))
                     {
-                        // cout << "Memekodon\";
                         // cout << dst << endl;
                         // cout << isPath(i, dst) << endl;
                         if (func->checkHubungan(func->listData.dataKota[i].namaKota, func->listData.dataKota[j].namaKota) == true)
@@ -333,11 +381,7 @@ void nodeDraw::shortestPathVisual(bool isDijkstra)
                     }
                 }
             }
-            drawCircle(&window, func->listData.dataKota[i].x, func->listData.dataKota[i].y, func->listData.dataKota[i].namaKota);
         }
-
-        
-
         window.display();
     }
     return;
